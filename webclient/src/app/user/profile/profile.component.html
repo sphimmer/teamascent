@@ -1,0 +1,24 @@
+
+    <app-profile-header
+      name="{{authService.user?.firstName}} {{authService.user?.lastName}}"
+      role="{{authService.user?.role}}"
+    ></app-profile-header>
+    <div class="margin-bottom-sm">
+      <div class="grid gap-xs">
+        <div class="col-6@md">
+          <app-text-input label="First Name" value="{{authService.user?.firstName}}"></app-text-input>
+        </div>
+        <div class="col-6@md">
+          <app-text-input label="Last Name" value="{{authService.user?.lastName}}"></app-text-input>
+        </div>
+      </div>
+      <app-text-input label="Email" value="{{authService.user?.email}}"></app-text-input>
+      <app-password-field></app-password-field>
+      <app-datepicker label="Date of Birth"></app-datepicker>
+    </div>
+    <app-textarea
+      label="Biography"
+      helper="Write a bio about yourself"
+    ></app-textarea>
+    <app-button text="Save"></app-button>
+

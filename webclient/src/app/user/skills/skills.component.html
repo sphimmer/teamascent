@@ -1,0 +1,37 @@
+<app-profile-header
+  name="{{ authService.user?.firstName }} {{ authService.user?.lastName }}"
+  role="{{ authService.user?.role }}"
+></app-profile-header>
+<div class="text-component">
+  <h2>My Skills</h2>
+</div>
+<div class="grid gap-md padding-top-md">
+
+  <div class="col-3@md">
+    <h5 class="text-component margin-bottom-xs">Add a new Skill</h5>
+    <app-search></app-search>
+  </div>
+
+  <div class="col-3@md">
+    <h5 class="text-component margin-bottom-xs">Rate your Competency 1-10</h5>
+    <div class="margin-bottom-xs">
+      <app-slider></app-slider>
+    </div>
+    <app-button text="Save"></app-button>
+  </div>
+  <div class="col-6@md">
+    <h5 class="margin-bottom-xs">Skills</h5>
+    <app-chip label="CSS lvl: 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip>
+  </div>
+</div>

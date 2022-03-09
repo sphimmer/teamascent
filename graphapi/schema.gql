@@ -1,0 +1,52 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Mutation {
+  addSkill(addSkillData: UserToSkillInput!): UserToSkill!
+  createSkill(skillInput: SkillInput!): Skill!
+  createUser(userInputData: UserInput!): User!
+}
+
+type Query {
+  skills: [Skill!]!
+  user(id: String!): User!
+}
+
+type Skill {
+  id: Int!
+  name: String!
+}
+
+input SkillInput {
+  name: String!
+}
+
+type User {
+  biography: String
+  dateOfBirth: String!
+  email: String!
+  firstName: String!
+  id: String!
+  lastName: String!
+  skills: [UserToSkill!]!
+}
+
+input UserInput {
+  dateOfBirth: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+}
+
+type UserToSkill {
+  compentencyLevel: Int!
+  skill: Skill!
+}
+
+input UserToSkillInput {
+  compentencyLevel: Int!
+  skillId: Float!
+  userId: String!
+}

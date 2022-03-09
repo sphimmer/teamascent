@@ -1,0 +1,4 @@
+**/node_modules
+**/dist
+/webclient/.angular
+/webclient/.vscode

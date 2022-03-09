@@ -1,0 +1,22 @@
+<fieldset>
+  <legend class="sr-only">Select a value in the interval:</legend>
+
+  <div class="slider js-slider">
+    <div class="slider__range">
+      <label class="sr-only" for="sliderValue">Slider value</label>
+      <input class="slider__input" type="range" id="sliderValue" name="sliderValue" min="1" max="10" step="1" value="{{value}}" #ref (input)="change(ref.value)">
+      <div class="grid">
+        <div class="col-6">
+          <p class="text-component text-xs">Novice</p>
+        </div>
+        <div class="col-6 text-component">
+          <p class="text-xs text-right">Expert</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center margin-top-xs" aria-hidden="true">
+      <span class="slider__value"><span class="js-slider__value">{{value}}</span></span>
+    </div>
+  </div>
+</fieldset>
