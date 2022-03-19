@@ -11,7 +11,7 @@ export class UserInput {
   @Field()
   email: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   dateOfBirth: Date;
 
   @Field()

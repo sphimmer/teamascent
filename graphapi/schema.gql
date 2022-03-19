@@ -27,7 +27,7 @@ type User {
   dateOfBirth: String!
   email: String!
   firstName: String!
-  id: String!
+  id: ID!
   lastName: String!
   skills: [UserToSkill!]!
 }
