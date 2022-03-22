@@ -5,12 +5,14 @@ import { SkillsModule } from './skills/skills.module';
 import { UsersModule } from './users/users.module';
 import { UserToSkillModule } from './UserToSkill/userToSkill.module';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
     SkillsModule,
     UsersModule,
     UserToSkillModule,
+    RolesModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',

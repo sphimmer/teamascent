@@ -4,5 +4,6 @@ import { SkillsService } from './skills.service';
 
 @Module({
   providers: [SkillsResolver, SkillsService],
+  exports: [SkillsService],
 })
 export class SkillsModule {}

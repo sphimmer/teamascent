@@ -4,7 +4,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -29,7 +30,8 @@ export class Role {
   responsibilities: string;
 
   @Field(() => [Skill])
-  @OneToMany(() => Skill, (s) => s.role)
+  @ManyToMany(() => Skill)
+  @JoinTable()
   skills: Skill[];
 
   @Field(() => String)
@@ -39,4 +41,13 @@ export class Role {
   @Field(() => String)
   @UpdateDateColumn()
   updatedDate: Date;
+}
+
+@ObjectType()
+export class DeletedRoleResult {
+  @Field()
+  message: string;
+
+  @Field()
+  status: 'SUCCESS' | 'FAILED';
 }

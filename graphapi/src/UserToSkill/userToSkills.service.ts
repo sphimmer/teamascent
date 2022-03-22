@@ -1,5 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { Skill } from 'src/skills/models/skill.model';
+import { Injectable } from '@nestjs/common';
 import { getRepository, Repository } from 'typeorm';
 import { UserToSkill } from './models/userToSkill.model';
 import { UserToSkillInput } from './models/userToSkillInput.model';

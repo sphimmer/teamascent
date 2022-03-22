@@ -67,7 +67,7 @@ npx typeorm migration:generate -n <migration-name> -d src/migrations
 
 then run:
 ```
-typeorm migration:run
+npx typeorm migration:run
 ```
 to make the migrations take effect
 
