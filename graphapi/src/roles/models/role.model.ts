@@ -42,12 +42,3 @@ export class Role {
   @UpdateDateColumn()
   updatedDate: Date;
 }
-
-@ObjectType()
-export class DeletedRoleResult {
-  @Field()
-  message: string;
-
-  @Field()
-  status: 'SUCCESS' | 'FAILED';
-}

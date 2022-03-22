@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type DeletedRoleResult {
+type DeleteResult {
   message: String!
   status: String!
 }
@@ -12,7 +12,8 @@ type Mutation {
   createRole(roleInputData: RoleInput!): Role!
   createSkill(skillInput: SkillInput!): Skill!
   createUser(userInputData: UserInput!): User!
-  deleteRole(id: Float!): DeletedRoleResult!
+  deleteRole(id: Float!): DeleteResult!
+  deleteSkill(id: Float!): DeleteResult!
   updateRole(id: Float!, roleInputData: RoleInput!): Role!
 }
 

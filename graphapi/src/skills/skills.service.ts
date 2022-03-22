@@ -24,4 +24,9 @@ export class SkillsService {
   async findById(id: number): Promise<Skill> {
     return await this.repository.findOne(id);
   }
+
+  async delete(id: number): Promise<boolean> {
+    const result = await this.repository.delete({ id: id });
+    return result.affected > 0;
+  }
 }

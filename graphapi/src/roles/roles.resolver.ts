@@ -9,7 +9,8 @@ import {
 } from '@nestjs/graphql';
 import { ApolloError } from 'apollo-server-errors';
 import { Skill } from 'src/skills/models/skill.model';
-import { DeletedRoleResult, Role } from './models/role.model';
+import { DeleteResult } from 'src/util/models/deleteResult.model';
+import { Role } from './models/role.model';
 import { RoleInput } from './models/roleInput.model';
 import { RolesService } from './roles.service';
 
@@ -51,10 +52,10 @@ export class RolesResolver {
     return await this.roleService.save(updateRole);
   }
 
-  @Mutation((returns) => DeletedRoleResult)
-  async deleteRole(@Args('id') id: number): Promise<DeletedRoleResult> {
+  @Mutation((returns) => DeleteResult)
+  async deleteRole(@Args('id') id: number): Promise<DeleteResult> {
     const isDeleted = await this.roleService.delete(id);
-    const result = new DeletedRoleResult();
+    const result = new DeleteResult();
     if (isDeleted) {
       result.message = 'Role Successfully deleted';
       result.status = 'SUCCESS';
