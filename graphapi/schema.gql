@@ -2,15 +2,42 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type DeletedRoleResult {
+  message: String!
+  status: String!
+}
+
 type Mutation {
   addSkill(addSkillData: UserToSkillInput!): UserToSkill!
+  createRole(roleInputData: RoleInput!): Role!
   createSkill(skillInput: SkillInput!): Skill!
   createUser(userInputData: UserInput!): User!
+  deleteRole(id: Float!): DeletedRoleResult!
+  updateRole(id: Float!, roleInputData: RoleInput!): Role!
 }
 
 type Query {
+  role(id: Float!): Role!
+  roles(title: String): [Role!]!
   skills: [Skill!]!
   user(id: String!): User!
+}
+
+type Role {
+  createdDate: String!
+  description: String!
+  id: ID!
+  responsibilities: String!
+  skills: [Skill!]!
+  title: String!
+  updatedDate: String!
+}
+
+input RoleInput {
+  description: String!
+  responsibilities: String!
+  skillIds: [Int!]
+  title: String!
 }
 
 type Skill {
@@ -27,7 +54,7 @@ type User {
   dateOfBirth: String!
   email: String!
   firstName: String!
-  id: String!
+  id: ID!
   lastName: String!
   skills: [UserToSkill!]!
 }

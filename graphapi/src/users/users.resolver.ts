@@ -38,7 +38,7 @@ export class UsersResolver {
     if (!user) {
       throw new ApolloError('User Not Found', 'NOT FOUND');
     }
-    return await this.userService.findUser(id);
+    return user;
   }
 
   @ResolveField('skills', (returns) => [UserToSkill])

@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { UserToSkill } from 'src/UserToSkill/models/userToSkill.model';
 import {
   Column,
@@ -12,7 +12,7 @@ import {
 @ObjectType()
 @Entity()
 export class User {
-  @Field()
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

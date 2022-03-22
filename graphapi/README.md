@@ -58,6 +58,19 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Database migrations
+After making changes to entities run the script
+
+```
+npx typeorm migration:generate -n <migration-name> -d src/migrations
+```
+
+then run:
+```
+npx typeorm migration:run
+```
+to make the migrations take effect
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
