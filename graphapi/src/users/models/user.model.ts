@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { UserToSkill } from 'src/UserToSkill/models/userToSkill.model';
+import { UserToSkill } from 'src/userToSkill/models/userToSkill.model';
 import {
   Column,
   CreateDateColumn,

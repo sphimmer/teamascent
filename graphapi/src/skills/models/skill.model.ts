@@ -1,5 +1,5 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
-import { UserToSkill } from 'src/UserToSkill/models/userToSkill.model';
+import { UserToSkill } from 'src/userToSkill/models/userToSkill.model';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()

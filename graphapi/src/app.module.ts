@@ -3,7 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { SkillsModule } from './skills/skills.module';
 import { UsersModule } from './users/users.module';
-import { UserToSkillModule } from './UserToSkill/userToSkill.module';
+import { UserToSkillModule } from './userToSkill/userToSkill.module';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { RolesModule } from './roles/roles.module';
 

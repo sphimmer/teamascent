@@ -7,8 +7,8 @@ import {
   Query,
 } from '@nestjs/graphql';
 import { ApolloError } from 'apollo-server-core';
-import { UserToSkill } from 'src/UserToSkill/models/userToSkill.model';
-import { UserToSkillService } from 'src/UserToSkill/userToSkills.service';
+import { UserToSkill } from 'src/userToSkill/models/userToSkill.model';
+import { UserToSkillService } from 'src/userToSkill/userToSkills.service';
 import { User } from './models/user.model';
 import { UserInput } from './models/userInput.model';
 import { UsersService } from './users.service';
