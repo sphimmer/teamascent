@@ -13,7 +13,12 @@ export class SkillsResolver {
   }
 
   @Query((returns) => [Skill], { name: 'skills' })
-  async getSkills(): Promise<Skill[]> {
+  async getSkills(
+    @Args('name', { nullable: true }) name: string,
+  ): Promise<Skill[]> {
+    if (name) {
+      return await this.skillsService.search(name);
+    }
     return await this.skillsService.findAll();
   }
 

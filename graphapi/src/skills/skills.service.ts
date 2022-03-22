@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, ILike, Repository } from 'typeorm';
 import { Skill } from './models/skill.model';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class SkillsService {
   }
 
   async search(keyWord: string): Promise<Skill[]> {
-    return await this.repository.find({ where: { name: keyWord } });
+    return await this.repository.find({ name: ILike(`%${keyWord}%`) });
   }
 
   async findById(id: number): Promise<Skill> {
