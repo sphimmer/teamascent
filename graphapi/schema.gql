@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type DeleteResult {
   message: String!
   status: String!
@@ -9,18 +14,45 @@ type DeleteResult {
 
 type Mutation {
   addSkill(addSkillData: UserToSkillInput!): UserToSkill!
+  createPosition(position: PositionInput!): Position!
   createRole(roleInputData: RoleInput!): Role!
   createSkill(skillInput: SkillInput!): Skill!
+  createTeam(teamInput: TeamInput!): Team!
   createUser(userInputData: UserInput!): User!
   deleteRole(id: Float!): DeleteResult!
-  deleteSkill(id: Float!): DeleteResult!
+  deleteSkill: DeleteResult!
+  publishTeam(id: Float!): Team!
+  updatePosition(id: Float!, position: PositionUpdate!): Position!
   updateRole(id: Float!, roleInputData: RoleInput!): Role!
+  updateTeam(id: Float!): Team!
+}
+
+type Position {
+  id: Float!
+  role: Role!
+  team: Team!
+  user: User
+}
+
+input PositionInput {
+  roleId: Float!
+  teamId: Float!
+  userId: String
+}
+
+input PositionUpdate {
+  roleId: Float
+  teamId: Float
+  userId: String
 }
 
 type Query {
+  position(id: Float!): Position!
   role(id: Float!): Role!
   roles(title: String): [Role!]!
   skills(name: String): [Skill!]!
+  team(id: Float!): Team!
+  teams(name: String): Team!
   user(id: String!): User!
 }
 
@@ -47,6 +79,19 @@ type Skill {
 }
 
 input SkillInput {
+  name: String!
+}
+
+type Team {
+  createdDate: DateTime!
+  id: Float!
+  name: String!
+  positions: [Position!]!
+  state: String!
+  updatedDate: DateTime!
+}
+
+input TeamInput {
   name: String!
 }
 

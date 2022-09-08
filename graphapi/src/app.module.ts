@@ -6,6 +6,8 @@ import { UsersModule } from './users/users.module';
 import { UserToSkillModule } from './userToSkill/userToSkill.module';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { RolesModule } from './roles/roles.module';
+import { TeamsModule } from './teams/teams.module';
+import { PositionsModule } from './positions/postions.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { RolesModule } from './roles/roles.module';
     UsersModule,
     UserToSkillModule,
     RolesModule,
+    TeamsModule,
+    PositionsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',

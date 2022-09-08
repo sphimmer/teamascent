@@ -12,6 +12,10 @@ export class ProfileHeaderComponent implements OnInit {
 
   @Input()
   role?: string
+
+  @Input()
+  userId?: string
+
   constructor() { }
 
   ngOnInit(): void {

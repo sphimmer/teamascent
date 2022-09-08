@@ -7,13 +7,13 @@ import { SkillsService } from './skills.service';
 export class SkillsResolver {
   constructor(private skillsService: SkillsService) {}
 
-  @Mutation((returns) => Skill)
-  async createSkill(@Args('skillInput') skill: SkillInput): Promise<Skill> {
+  @Mutation((returns) => Skill, { name: "createSkill"})
+  async create(@Args('skillInput') skill: SkillInput): Promise<Skill> {
     return await this.skillsService.create(skill);
   }
 
   @Query((returns) => [Skill], { name: 'skills' })
-  async getSkills(
+  async search(
     @Args('name', { nullable: true }) name: string,
   ): Promise<Skill[]> {
     if (name) {
@@ -22,8 +22,8 @@ export class SkillsResolver {
     return await this.skillsService.findAll();
   }
 
-  @Mutation((returns) => DeleteResult)
-  async deleteSkill(@Args('id') id: number): Promise<DeleteResult> {
+  @Mutation((returns) => DeleteResult, { name: "deleteSkill" })
+  async delete(@Args('id') id: number): Promise<DeleteResult> {
     const isDeleted = await this.skillsService.delete(id);
     if (isDeleted) {
       return { message: 'Skill deleted', status: 'SUCCESS' };

@@ -11,9 +11,7 @@ export class RolesService {
   }
 
   async save(role: Role): Promise<Role> {
-    console.log(role);
     const savedRole = await this.repository.save(role);
-    console.log(savedRole);
     return savedRole;
   }
 

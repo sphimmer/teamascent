@@ -24,11 +24,14 @@ export class RolesResolver {
     newRole.title = roleInput.title;
     newRole.description = roleInput.description;
     newRole.responsibilities = roleInput.responsibilities;
-    newRole.skills = roleInput.skillIds.map((id) => {
-      const s = new Skill();
-      s.id = id;
-      return s;
-    });
+    if (roleInput.skillIds) {
+      newRole.skills = roleInput.skillIds.map((id) => {
+        const s = new Skill();
+        s.id = id;
+        return s;
+      });
+    }
+    
 
     return await this.roleService.save(newRole);
   }
