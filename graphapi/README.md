@@ -62,6 +62,7 @@ $ npm run test:cov
 After making changes to entities run the script
 
 ```
+npm run build
 npx typeorm migration:generate -n <migration-name> -d src/migrations
 ```
 

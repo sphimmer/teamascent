@@ -8,6 +8,7 @@ import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { RolesModule } from './roles/roles.module';
 import { TeamsModule } from './teams/teams.module';
 import { PositionsModule } from './positions/postions.module';
+import { OrganizationsModule } from './organizations/organizations.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { PositionsModule } from './positions/postions.module';
     RolesModule,
     TeamsModule,
     PositionsModule,
+    OrganizationsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',

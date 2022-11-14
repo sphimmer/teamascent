@@ -1,9 +1,11 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Organization } from 'src/organizations/models/organization.model';
 import { UserToSkill } from 'src/userToSkill/models/userToSkill.model';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -44,8 +46,14 @@ export class User {
   password: string;
 
   @CreateDateColumn()
+  @Field()
   createdDate: Date;
 
   @UpdateDateColumn()
+  @Field()
   updatedDate: Date;
+
+  @ManyToOne(() => Organization)
+  @Field()
+  organization: Organization
 }

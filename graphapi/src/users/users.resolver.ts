@@ -7,6 +7,7 @@ import {
   Query,
 } from '@nestjs/graphql';
 import { ApolloError } from 'apollo-server-core';
+import { Organization } from 'src/organizations/models/organization.model';
 import { UserToSkill } from 'src/userToSkill/models/userToSkill.model';
 import { UserToSkillService } from 'src/userToSkill/userToSkills.service';
 import { User } from './models/user.model';
@@ -22,12 +23,18 @@ export class UsersResolver {
 
   @Mutation((returns) => User)
   async createUser(@Args('userInputData') userInput: UserInput): Promise<User> {
+    let [valid, errors] = userInput.validate()
+    if (!valid && errors.length > 0) {
+      throw new Error("Invalid input: " + errors.toString());
+    }
     const user = new User();
     user.firstName = userInput.firstName;
     user.lastName = userInput.lastName;
     user.email = userInput.email;
     user.password = userInput.password;
     user.dateOfBirth = userInput.dateOfBirth;
+    user.organization = new Organization()
+    user.organization.id = userInput.organizationId
 
     return await this.userService.createUser(user);
   }

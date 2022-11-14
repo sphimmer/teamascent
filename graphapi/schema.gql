@@ -14,6 +14,7 @@ type DeleteResult {
 
 type Mutation {
   addSkill(addSkillData: UserToSkillInput!): UserToSkill!
+  createOrganization(name: String!): Organization!
   createPosition(position: PositionInput!): Position!
   createRole(roleInputData: RoleInput!): Role!
   createSkill(skillInput: SkillInput!): Skill!
@@ -27,8 +28,16 @@ type Mutation {
   updateTeam(id: Float!): Team!
 }
 
+type Organization {
+  createdDate: DateTime!
+  id: ID!
+  name: String!
+  updatedDate: DateTime!
+}
+
 type Position {
   id: Float!
+  organization: Organization!
   role: Role!
   team: Team!
   user: User
@@ -47,6 +56,8 @@ input PositionUpdate {
 }
 
 type Query {
+  organization(id: String!): Organization!
+  organizations: [Organization!]!
   position(id: Float!): Position!
   role(id: Float!): Role!
   roles(title: String): [Role!]!
@@ -60,6 +71,7 @@ type Role {
   createdDate: String!
   description: String!
   id: ID!
+  organization: Organization!
   responsibilities: String!
   skills: [Skill!]!
   title: String!
@@ -86,6 +98,7 @@ type Team {
   createdDate: DateTime!
   id: Float!
   name: String!
+  organization: Organization!
   positions: [Position!]!
   state: String!
   updatedDate: DateTime!
@@ -97,12 +110,15 @@ input TeamInput {
 
 type User {
   biography: String
+  createdDate: DateTime!
   dateOfBirth: String!
   email: String!
   firstName: String!
   id: ID!
   lastName: String!
+  organization: Organization!
   skills: [UserToSkill!]!
+  updatedDate: DateTime!
 }
 
 input UserInput {
@@ -110,6 +126,7 @@ input UserInput {
   email: String!
   firstName: String!
   lastName: String!
+  organizationId: String!
   password: String!
 }
 

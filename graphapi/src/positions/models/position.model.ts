@@ -1,4 +1,5 @@
 import { Field, InputType, ObjectType } from "@nestjs/graphql";
+import { Organization } from "src/organizations/models/organization.model";
 import { Role } from "src/roles/models/role.model";
 import { Team } from "src/teams/models/team.model";
 import { User } from "src/users/models/user.model";
@@ -17,6 +18,7 @@ export class Position{
     @Field()
     role: Role
 
+    // TODO: make manyToOne to allow for users to hold multiple positions or decide how a team of teams structure would work
     @OneToOne(() => User, {nullable: true})
     @JoinColumn()
     @Field({nullable: true})
@@ -26,6 +28,10 @@ export class Position{
     @ManyToOne(() => Team, (t) => t.positions)
     @Field(() => Team)
     team: Team
+
+    @Field()
+    @ManyToOne(() => Organization)
+    organization: Organization
 }
 
 @InputType()

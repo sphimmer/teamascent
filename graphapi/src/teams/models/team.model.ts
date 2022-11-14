@@ -1,6 +1,7 @@
 import { Field, InputType, ObjectType } from "@nestjs/graphql";
+import { Organization } from "src/organizations/models/organization.model";
 import { Position } from "src/positions/models/position.model";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @ObjectType()
 @Entity()
@@ -29,6 +30,9 @@ export class Team {
     @Field(() => Position)
     positions: Position[];
 
+    @Field()
+    @ManyToOne(() => Organization)
+    organization: Organization
 }
 
 @InputType()

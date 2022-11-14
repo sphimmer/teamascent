@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Organization } from 'src/organizations/models/organization.model';
 import { Skill } from 'src/skills/models/skill.model';
 import {
   Column,
@@ -6,6 +7,7 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -41,4 +43,8 @@ export class Role {
   @Field(() => String)
   @UpdateDateColumn()
   updatedDate: Date;
+
+    @Field()
+    @ManyToOne(() => Organization)
+  organization: Organization
 }
