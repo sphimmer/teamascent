@@ -56,6 +56,7 @@ export class User {
   updatedDate: Date;
 
   @ManyToOne(() => Organization)
+  @Index()
   @Field()
   organization: Organization
 }

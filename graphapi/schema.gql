@@ -68,14 +68,15 @@ input PositionUpdate {
 
 type Query {
   me: User!
-  organization(id: String!): Organization!
+  organization: Organization!
   organizations: [Organization!]!
   position(id: Float!): Position!
+  positions: [Position!]!
   role(id: Float!): Role!
   roles(title: String): [Role!]!
   skills(name: String): [Skill!]!
   team(id: Float!): Team!
-  teams(name: String): Team!
+  teams(name: String): [Team!]!
   user(id: String!): User!
 }
 
@@ -111,7 +112,7 @@ type Team {
   id: Float!
   name: String!
   organization: Organization!
-  positions: [Position!]!
+  positions: Position!
   state: String!
   updatedDate: DateTime!
 }
@@ -150,5 +151,5 @@ type UserToSkill {
 input UserToSkillInput {
   compentencyLevel: Int!
   skillId: Float!
-  userId: String!
+  userId: String
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { getRepository, Repository } from 'typeorm';
+import { FindManyOptions, FindOneOptions, getRepository, Repository } from 'typeorm';
 import { Role } from './models/role.model';
 
 @Injectable()
@@ -15,8 +15,8 @@ export class RolesService {
     return savedRole;
   }
 
-  async findOne(roleId: number, withSkill = false): Promise<Role> {
-    const options = {};
+  async findOne(roleId: number, organizationId: string, withSkill = false): Promise<Role> {
+    const options: FindOneOptions<Role> = {where: {organization: {id: organizationId}}};
     if (withSkill) {
       options['relations'] = ['skills'];
     }
@@ -24,10 +24,10 @@ export class RolesService {
     return role;
   }
 
-  async findAll(title: string): Promise<Role[]> {
-    let options = {};
+  async findAll(title: string, organizationId: string): Promise<Role[]> {
+    const options: FindManyOptions<Role> = {where: {organization: {id: organizationId}}};
     if (title) {
-      options = { where: { title: title } };
+      options['where']['title'] = title;
     }
     const roles = await this.repository.find(options);
     return roles;

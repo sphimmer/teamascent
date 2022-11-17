@@ -30,6 +30,7 @@ export class Position{
     team: Team
 
     @Field()
+    @Index()
     @ManyToOne(() => Organization)
     organization: Organization
 }

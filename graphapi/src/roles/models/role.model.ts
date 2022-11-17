@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -44,7 +45,8 @@ export class Role {
   @UpdateDateColumn()
   updatedDate: Date;
 
-    @Field()
-    @ManyToOne(() => Organization)
-  organization: Organization
+  @Field()
+  @Index()
+  @ManyToOne(() => Organization)
+  organization: Organization;
 }

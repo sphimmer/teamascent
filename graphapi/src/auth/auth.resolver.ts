@@ -11,10 +11,10 @@ export class AuthResolver {
 
     @Mutation(() => LoginResponse)
     async login(@Args('loginInput') login: LoginInput): Promise<LoginResponse>{
-        const user = await this.authService.validateUser(login.email, login.password)
-        if (!user){
+        const response = await this.authService.validateUser(login.email, login.password)
+        if (!response){
             throw new UnauthorizedException();
         }
-        return user
+        return response
     }
 }

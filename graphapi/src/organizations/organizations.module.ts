@@ -5,5 +5,6 @@ import { OrganizationsService } from "./organizations.service";
 @Module({
     providers: [OrganizationsService, OrganizationsResolver],
     imports: [],
+    exports: [OrganizationsService]
   })
 export class OrganizationsModule {}

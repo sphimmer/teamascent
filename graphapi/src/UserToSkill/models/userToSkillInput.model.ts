@@ -1,10 +1,12 @@
+
+import { Optional } from '@nestjs/common';
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { UserToSkill } from './userToSkill.model';
+
 
 @InputType()
-export class UserToSkillInput extends UserToSkill {
-  @Field()
-  userId!: string;
+export class UserToSkillInput {
+  @Field({nullable: true})
+  userId?: string;
 
   @Field()
   skillId!: number;

@@ -17,6 +17,7 @@ import * as bcrypt from 'bcrypt';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/gql-auth.guard';
 import { CurrentUser } from 'src/auth/decorators/currentUser.decorator';
+import { DecodedJwt } from 'src/auth/models/auth.model';
 
 @Resolver((of: any) => User)
 export class UsersResolver {
@@ -45,8 +46,8 @@ export class UsersResolver {
 
   @Query((returns) => User, { name: 'user' })
   @UseGuards(GqlAuthGuard)
-  async getUser(@Args('id') id: string) {
-    const user = await this.userService.findUser(id);
+  async getUser(@Args('id') id: string, @CurrentUser() currentUser: DecodedJwt) {
+    const user = await this.userService.findUser(id, currentUser.organizationId);
     if (!user) {
       throw new ApolloError('User Not Found', 'NOT FOUND');
     }
@@ -55,8 +56,8 @@ export class UsersResolver {
 
   @Query((returns) => User, { name: 'me' })
   @UseGuards(GqlAuthGuard)
-  async getMe(@CurrentUser() currentUser: User) {
-    const user = await this.userService.findUser(currentUser.id);
+  async getMe(@CurrentUser() currentUser: DecodedJwt) {
+    const user = await this.userService.findUser(currentUser.id, currentUser.organizationId);
     if (!user) {
       throw new ApolloError('User Not Found', 'NOT FOUND');
     }

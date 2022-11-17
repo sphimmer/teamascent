@@ -18,3 +18,9 @@ export class LoginInput{
     @Field()
     password: string
 }
+
+export class DecodedJwt{
+    email: string;
+    id: string;
+    organizationId: string;
+}

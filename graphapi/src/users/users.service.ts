@@ -16,9 +16,9 @@ export class UsersService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  async findUser(id: string): Promise<User | null> {
+  async findUser(id: string, organizationId: string): Promise<User | null> {
     try {
-      const foundUser = await this.repository.findOne(id);
+      const foundUser = await this.repository.findOne(id, {where: {organization: {id: organizationId}}});
       if (!foundUser) {
         Logger.log('User not found', 'UserService.findUser');
         return null;
