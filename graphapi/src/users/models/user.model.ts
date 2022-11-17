@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -15,7 +16,7 @@ import {
 @Entity()
 export class User {
   @Field(() => ID)
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('uuid', {})
   id: string;
 
   @Field()
@@ -27,6 +28,7 @@ export class User {
   lastName: string;
 
   @Field()
+  @Index({unique: true})
   @Column()
   email: string;
 
@@ -39,7 +41,7 @@ export class User {
   biography: string;
 
   @Field(() => [UserToSkill])
-  @OneToMany(() => UserToSkill, (uts) => uts.user)
+  @OneToMany(() => UserToSkill, (uts) => uts.user, {onDelete: "CASCADE"})
   skills: UserToSkill;
 
   @Column()

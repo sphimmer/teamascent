@@ -9,9 +9,15 @@ import { RolesModule } from './roles/roles.module';
 import { TeamsModule } from './teams/teams.module';
 import { PositionsModule } from './positions/postions.module';
 import { OrganizationsModule } from './organizations/organizations.module';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+ConfigModule.forRoot()
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     SkillsModule,
     UsersModule,
     UserToSkillModule,
@@ -37,6 +43,7 @@ import { OrganizationsModule } from './organizations/organizations.module';
         return graphQLFormattedError;
       },
     }),
+    AuthModule,
   ],
 })
 export class AppModule {}

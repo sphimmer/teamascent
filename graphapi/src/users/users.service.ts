@@ -28,4 +28,17 @@ export class UsersService {
       Logger.error('Error in retrieving user', 'UserService.findUser');
     }
   }
+
+  async findUserByEmail(email: string): Promise<User | null> {
+    try{
+      const foundUser = await this.repository.findOne({where: {email: email}, relations: ['organization']})
+      if (!foundUser) {
+        Logger.log('User not found', 'UserService.findUser');
+        return null;
+      }
+      return foundUser;
+    } catch (error) {
+      Logger.error('Error in retrieving user', 'UserService.findUser');
+    }
+  }
 }

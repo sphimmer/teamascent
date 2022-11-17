@@ -5,6 +5,8 @@ import { DeleteResult } from 'src/util/models/deleteResult.model';
 import { Role } from "src/roles/models/role.model";
 import { User } from "src/users/models/user.model";
 import { Team } from "src/teams/models/team.model";
+import { UseGuards } from "@nestjs/common";
+import { GqlAuthGuard } from "src/auth/gql-auth.guard";
 
 
 @Resolver((of: any) => Position)
@@ -14,6 +16,7 @@ export class PositionsResolver {
     ){}
 
     @Mutation(returns => Position)
+    @UseGuards(GqlAuthGuard)
     async createPosition(@Args('position') position: PositionInput){
         const p = new Position()
         p.role = new Role()
@@ -30,16 +33,19 @@ export class PositionsResolver {
     }
 
     @Query((returns) => Position, {name: 'position'})
+    @UseGuards(GqlAuthGuard)
     async getPosition(@Args("id") id: number){
         return await this.positionsService.findById(id);
     }
 
     @Mutation((returns) => DeleteResult, { name: "deleteSkill" })
+    @UseGuards(GqlAuthGuard)
     async deletePosition(id: number){
         return this.positionsService.delete(id)
     }
 
     @Mutation(returns => Position)
+    @UseGuards(GqlAuthGuard)
     async updatePosition(@Args('id') id: number, @Args('position') position: PositionUpdate){
         const p = new Position()
         p.id = id

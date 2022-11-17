@@ -20,35 +20,36 @@ export class UserInput {
   @Field()
   organizationId: string;
 
-  validate(): [boolean, string[]]{
-    let valid = true
-    const errors: string[] = []
+}
 
-    if (!this.firstName || this.firstName == '') {
-      valid = false
-      errors.push('invalid first name')
-    }
+export function validate(user: UserInput): [boolean, string[]]{
+  let valid = true
+  const errors: string[] = []
 
-    if (!this.lastName || this.lastName == '') {
-      valid = false
-      errors.push('invalid last name')
-    }
-
-    if (!this.email || this.email == '') {
-      valid = false
-      errors.push('invalid email')
-    } 
-    
-    if (!this.organizationId || this.organizationId == '') {
-      valid = false
-      errors.push('invalid organization')
-    }
-
-    if (!this.password || this.password == '' ) {
-      valid = false
-      errors.push('invalid password')
-    } 
-
-    return [valid, errors]
+  if (!user.firstName || user.firstName == '') {
+    valid = false
+    errors.push('invalid first name')
   }
+
+  if (!user.lastName || user.lastName == '') {
+    valid = false
+    errors.push('invalid last name')
+  }
+
+  if (!user.email || user.email == '') {
+    valid = false
+    errors.push('invalid email')
+  } 
+  
+  if (!user.organizationId || user.organizationId == '') {
+    valid = false
+    errors.push('invalid organization')
+  }
+
+  if (!user.password || user.password == '' ) {
+    valid = false
+    errors.push('invalid password')
+  } 
+
+  return [valid, errors]
 }

@@ -12,6 +12,16 @@ type DeleteResult {
   status: String!
 }
 
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginResponse {
+  access_token: String!
+  user: User!
+}
+
 type Mutation {
   addSkill(addSkillData: UserToSkillInput!): UserToSkill!
   createOrganization(name: String!): Organization!
@@ -22,6 +32,7 @@ type Mutation {
   createUser(userInputData: UserInput!): User!
   deleteRole(id: Float!): DeleteResult!
   deleteSkill: DeleteResult!
+  login(loginInput: LoginInput!): LoginResponse!
   publishTeam(id: Float!): Team!
   updatePosition(id: Float!, position: PositionUpdate!): Position!
   updateRole(id: Float!, roleInputData: RoleInput!): Role!
@@ -56,6 +67,7 @@ input PositionUpdate {
 }
 
 type Query {
+  me: User!
   organization(id: String!): Organization!
   organizations: [Organization!]!
   position(id: Float!): Position!
