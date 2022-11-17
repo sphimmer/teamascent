@@ -13,6 +13,7 @@ import { DecodedJwt } from 'src/auth/models/auth.model';
 import { Skill } from 'src/skills/models/skill.model';
 import { SkillsService } from 'src/skills/skills.service';
 import { User } from 'src/users/models/user.model';
+import { DeleteResult } from 'src/util/models/deleteResult.model';
 import { UserToSkill } from './models/userToSkill.model';
 import { UserToSkillInput } from './models/userToSkillInput.model';
 import { UserToSkillService } from './userToSkills.service';
@@ -32,6 +33,24 @@ export class UserToSkillResolver {
       
     }
     return await this.userToSkillService.new(userToSkillInput);
+  }
+
+  @Mutation(() => DeleteResult, {name: "removeSkillFromUser"})
+  @UseGuards(GqlAuthGuard)
+  async removeSkill(@Args('skillId') skillId: number, @CurrentUser() cUser: DecodedJwt): Promise<DeleteResult>{
+    const isDeleted = await this.userToSkillService.delete(skillId, cUser.id)
+    if (isDeleted) {
+      return {
+        message: "Skill Removed",
+        status: "SUCCESS"
+      }  
+    } else {
+      return {
+        message: "Skill Not Removed",
+        status: "FAILED"
+      }
+    }
+    
   }
 
   @ResolveField('skill', (returns) => Skill)

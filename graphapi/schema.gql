@@ -34,6 +34,8 @@ type Mutation {
   deleteSkill: DeleteResult!
   login(loginInput: LoginInput!): LoginResponse!
   publishTeam(id: Float!): Team!
+  removeSkillFromUser(skillId: Float!): DeleteResult!
+  updateMe(me: UpdateUser!): User!
   updatePosition(id: Float!, position: PositionUpdate!): Position!
   updateRole(id: Float!, roleInputData: RoleInput!): Role!
   updateTeam(id: Float!): Team!
@@ -92,10 +94,10 @@ type Role {
 }
 
 input RoleInput {
-  description: String!
-  responsibilities: String!
+  description: String
+  responsibilities: String
   skillIds: [Int!]
-  title: String!
+  title: String
 }
 
 type Skill {
@@ -119,6 +121,14 @@ type Team {
 
 input TeamInput {
   name: String!
+}
+
+input UpdateUser {
+  biography: String
+  dateOfBirth: String
+  email: String
+  firstName: String
+  lastName: String
 }
 
 type User {

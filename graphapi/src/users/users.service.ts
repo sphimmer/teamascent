@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import transactionalUpdate from 'src/util/transactionUpdate';
 import { getRepository, Repository } from 'typeorm';
 import { User } from './models/user.model';
 
@@ -13,6 +14,10 @@ export class UsersService {
   async createUser(user: User): Promise<User> {
     const savedUser = await this.repository.save(user);
     return savedUser;
+  }
+
+  async updateUser(user: User,organizationId: string): Promise<User> {
+    return await transactionalUpdate<User>(User, user, organizationId)
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function

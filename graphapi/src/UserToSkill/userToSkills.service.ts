@@ -22,4 +22,9 @@ export class UserToSkillService {
     const newSkillSaved = await this.repository.save(skill);
     return newSkillSaved;
   }
+
+  async delete(skillId: number, userId: string): Promise<boolean>{
+    const result = await this.repository.delete({skill: {id: skillId}, user: {id: userId}})
+    return result.affected > 0
+  }
 }

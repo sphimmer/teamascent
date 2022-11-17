@@ -1,10 +1,11 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Skill } from 'src/skills/models/skill.model';
 import { User } from 'src/users/models/user.model';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Entity()
+@Index("user_skill_unique", ['userId', 'skillId'], {unique: true})
 export class UserToSkill {
   @PrimaryGeneratedColumn()
   userToSkillId: number;

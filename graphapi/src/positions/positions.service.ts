@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import transactionalUpdate from 'src/util/transactionUpdate';
 import { getConnection, getRepository, ILike, Repository, SaveOptions } from 'typeorm';
 import { Position } from './models/position.model';
 
@@ -16,25 +17,7 @@ export class PositionsService {
   }
 
   async update(position: Position, organizationId: string): Promise<Position> {
-    const conn = getConnection()
-    const qr = conn.createQueryRunner()
-    await qr.connect()
-    try {
-      await qr.startTransaction()
-      const foundP = await qr.manager.findOne(Position, position.id, {where: {organization: {id: organizationId}}})
-      if(foundP){
-        await qr.manager.save<Position>(position);
-        await qr.commitTransaction();
-        await qr.release();
-        return await this.findById(position.id, organizationId)
-      } else{
-        throw new NotFoundException()
-      }
-    } catch (error) {
-      await qr.rollbackTransaction();
-      await qr.release()
-      throw error
-    }
+    return await transactionalUpdate<Position>(Position, position, organizationId)
   }
 
   async findAll(organizationId: string): Promise<Position[]> {

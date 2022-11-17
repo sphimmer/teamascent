@@ -3,13 +3,13 @@ import { Role } from './role.model';
 
 @InputType()
 export class RoleInput extends Role {
-  @Field()
+  @Field({nullable: true})
   title: string;
 
-  @Field()
+  @Field({nullable: true})
   description: string;
 
-  @Field()
+  @Field({nullable: true})
   responsibilities: string;
 
   @Field(() => [Int], { nullable: true })

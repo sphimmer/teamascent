@@ -18,12 +18,15 @@ import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/gql-auth.guard';
 import { CurrentUser } from 'src/auth/decorators/currentUser.decorator';
 import { DecodedJwt } from 'src/auth/models/auth.model';
+import { UpdateUser } from './models/userUpdate.model';
+import { OrganizationsService } from 'src/organizations/organizations.service';
 
 @Resolver((of: any) => User)
 export class UsersResolver {
   constructor(
     private userService: UsersService,
     private userToSkillService: UserToSkillService,
+    private orgService: OrganizationsService
   ) {}
 
   @Mutation((returns) => User)
@@ -64,9 +67,28 @@ export class UsersResolver {
     return user;
   }
 
+  @Mutation(() => User, {name: "updateMe"})
+  @UseGuards(GqlAuthGuard)
+  async updateMe(@Args('me') user: UpdateUser, @CurrentUser() cUser: DecodedJwt) {
+
+    const newU: User = new User()
+    newU.id = cUser.id
+    Object.entries(user).forEach(([key, value]) => {
+      if(value){
+        newU[key] = value
+      }
+    })
+    return await this.userService.updateUser(newU, cUser.organizationId)
+  }
+
   @ResolveField('skills', (returns) => [UserToSkill])
   async getSkills(@Parent() user: User) {
     const skills = await this.userToSkillService.findAllByUser(user.id);
     return skills;
+  }
+
+  @ResolveField('organization', () => Organization)
+  async getOrg(@Parent() user: User, @CurrentUser() cUser: DecodedJwt) {
+    return await this.orgService.findById(cUser.organizationId || user.organization.id)
   }
 }

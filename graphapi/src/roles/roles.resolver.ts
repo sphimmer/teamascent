@@ -25,7 +25,10 @@ export class RolesResolver {
 
   @Mutation((returns) => Role)
   @UseGuards(GqlAuthGuard)
-  async createRole(@Args('roleInputData') roleInput: RoleInput, @CurrentUser() jwtValues: DecodedJwt): Promise<Role> {
+  async createRole(
+    @Args('roleInputData') roleInput: RoleInput,
+    @CurrentUser() jwtValues: DecodedJwt,
+  ): Promise<Role> {
     const newRole = new Role();
     newRole.title = roleInput.title;
     newRole.description = roleInput.description;
@@ -39,7 +42,7 @@ export class RolesResolver {
         return s;
       });
     }
-    
+
     return await this.roleService.save(newRole);
   }
 
@@ -48,19 +51,27 @@ export class RolesResolver {
   async updateRole(
     @Args('id') id: number,
     @Args('roleInputData') roleInput: RoleInput,
+    @CurrentUser() cUser: DecodedJwt,
   ): Promise<Role> {
     const updateRole = new Role();
     updateRole.id = id;
-    updateRole.title = roleInput.title;
-    updateRole.description = roleInput.description;
-    updateRole.responsibilities = roleInput.responsibilities;
-    updateRole.skills = roleInput.skillIds.map((id) => {
-      const s = new Skill();
-      s.id = id;
-      return s;
-    });
+    
+    Object.entries(roleInput).forEach(([key, value]) => {
+      if(value){
+        updateRole[key] = value
+      }
+    })
 
-    return await this.roleService.save(updateRole);
+    if (roleInput.skillIds) {
+      updateRole.skills = roleInput.skillIds.map((id) => {
+        const s = new Skill();
+        s.id = id;
+        return s;
+      });
+    }
+    
+
+    return await this.roleService.update(updateRole, cUser.organizationId);
   }
 
   @Mutation((returns) => DeleteResult)
@@ -80,7 +91,10 @@ export class RolesResolver {
 
   @Query(() => Role, { name: 'role' })
   @UseGuards(GqlAuthGuard)
-  async role(@Args('id') id: number, @CurrentUser() jwtVaules: DecodedJwt): Promise<Role> {
+  async role(
+    @Args('id') id: number,
+    @CurrentUser() jwtVaules: DecodedJwt,
+  ): Promise<Role> {
     const role = await this.roleService.findOne(id, jwtVaules.organizationId);
     if (!role) {
       throw new ApolloError('Role Not Found', 'NOT FOUND');
@@ -89,8 +103,15 @@ export class RolesResolver {
   }
 
   @ResolveField('skills', (returns) => [Skill])
-  async getSkills(@Parent() role: Role, @CurrentUser() jwtVaules: DecodedJwt): Promise<Skill[]> {
-    const roleWithSkills = await this.roleService.findOne(role.id, jwtVaules.organizationId, true);
+  async getSkills(
+    @Parent() role: Role,
+    @CurrentUser() jwtVaules: DecodedJwt,
+  ): Promise<Skill[]> {
+    const roleWithSkills = await this.roleService.findOne(
+      role.id,
+      jwtVaules.organizationId,
+      true,
+    );
     return roleWithSkills.skills;
   }
 
@@ -98,7 +119,7 @@ export class RolesResolver {
   @UseGuards(GqlAuthGuard)
   async roles(
     @Args('title', { nullable: true }) title: string,
-    @CurrentUser() jwtVaules: DecodedJwt
+    @CurrentUser() jwtVaules: DecodedJwt,
   ): Promise<Role[]> {
     return this.roleService.findAll(title, jwtVaules.organizationId);
   }

@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import transactionalUpdate from 'src/util/transactionUpdate';
 
-import { FindManyOptions, FindOneOptions, getRepository, Repository } from 'typeorm';
+import { FindManyOptions, FindOneOptions, getConnection, getRepository, Repository } from 'typeorm';
 import { Role } from './models/role.model';
 
 @Injectable()
@@ -13,6 +14,10 @@ export class RolesService {
   async save(role: Role): Promise<Role> {
     const savedRole = await this.repository.save(role);
     return savedRole;
+  }
+
+  async update(role: Role, organizationId: string): Promise<Role> {
+    return await transactionalUpdate<Role>(Role, role, organizationId)
   }
 
   async findOne(roleId: number, organizationId: string, withSkill = false): Promise<Role> {
