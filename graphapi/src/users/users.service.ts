@@ -16,7 +16,7 @@ export class UsersService {
     return savedUser;
   }
 
-  async updateUser(user: User,organizationId: string): Promise<User> {
+  async updateUser(user: User, organizationId: string): Promise<User> {
     return await transactionalUpdate<User>(User, user, organizationId)
   }
 
