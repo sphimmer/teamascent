@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LinkService } from 'src/app/link.service';
 import { AuthService } from '../auth.service';
@@ -8,6 +8,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
 
   @Input() email?: string
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
     this.message = undefined
     if(this.email && this.password){
       try {
-        this.authService.login(this.email, this.password).subscribe(user => {
+        this.authService.login(this.email, this.password).subscribe(result => {
+          console.log(result)
           this.router.navigate([this.linkService.getLink('skills')])
         })
       } catch (error) {

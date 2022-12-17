@@ -11,6 +11,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { PricingpageComponent } from './pricingpage/pricingpage.component';
 import { ContactpageComponent } from './contactpage/contactpage.component';
 import { NotfoundpageComponent } from './notfoundpage/notfoundpage.component';
+import { GraphQLModule } from './graphql.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { NotfoundpageComponent } from './notfoundpage/notfoundpage.component';
     AppRoutingModule,
     SharedModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    GraphQLModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
