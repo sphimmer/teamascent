@@ -19,12 +19,12 @@
     "@angular/platform-browser": "~15.1.2",
     "@angular/platform-browser-dynamic": "~15.1.2",
     "@angular/router": "~15.1.2",
-    "apollo-angular": "^4.1.1",
+    "apollo-angular": "^4.2.0",
     "codyhouse-framework": "^3.0.4",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4",
-    "@apollo/client": "^3.0.0",
+    "@apollo/client": "^3.7.5",
     "graphql": "^16"
   },
   "devDependencies": {
