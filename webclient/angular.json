@@ -107,5 +107,8 @@
       }
     }
   },
-  "defaultProject": "webclient"
+  "defaultProject": "webclient",
+  "cli": {
+    "analytics": "3730a498-3629-40ff-b900-fc7440b7286e"
+  }
 }
