@@ -8,6 +8,7 @@ import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeor
 @Index("user_skill_unique", ['userId', 'skillId'], {unique: true})
 export class UserToSkill {
   @PrimaryGeneratedColumn()
+  @Field(() => Int)
   userToSkillId: number;
 
   @Column()
@@ -18,7 +19,7 @@ export class UserToSkill {
 
   @Field(() => Int)
   @Column()
-  compentencyLevel: number;
+  competencyLevel: number;
 
   @ManyToOne(() => User, (user) => user.skills)
   user!: User;

@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { UseGuards } from '@nestjs/common';
+import { UnauthorizedException, UseGuards } from '@nestjs/common';
 import {
   Args,
+  Int,
   Mutation,
   Parent,
   ResolveField,
@@ -15,7 +16,7 @@ import { SkillsService } from 'src/skills/skills.service';
 import { User } from 'src/users/models/user.model';
 import { DeleteResult } from 'src/util/models/deleteResult.model';
 import { UserToSkill } from './models/userToSkill.model';
-import { UserToSkillInput } from './models/userToSkillInput.model';
+import { UserToSkillInput, UserToSkillUpdateInput } from './models/userToSkillInput.model';
 import { UserToSkillService } from './userToSkills.service';
 
 @Resolver((of) => UserToSkill)
@@ -37,8 +38,8 @@ export class UserToSkillResolver {
 
   @Mutation(() => DeleteResult, {name: "removeSkillFromUser"})
   @UseGuards(GqlAuthGuard)
-  async removeSkill(@Args('skillId') skillId: number, @CurrentUser() cUser: DecodedJwt): Promise<DeleteResult>{
-    const isDeleted = await this.userToSkillService.delete(skillId, cUser.id)
+  async removeSkill(@Args({name: 'userToSkillId', type: () => Int}) userToSkillId: number, @CurrentUser() cUser: DecodedJwt): Promise<DeleteResult>{
+    const isDeleted = await this.userToSkillService.delete(userToSkillId, cUser.id)
     if (isDeleted) {
       return {
         message: "Skill Removed",
@@ -51,6 +52,18 @@ export class UserToSkillResolver {
       }
     }
     
+  }
+
+  @Mutation((returns) => UserToSkill, {name: 'updateUserSkill'})
+  @UseGuards(GqlAuthGuard)
+  async updateSkill(@Args('updateData') userToSkillUpdate: UserToSkillUpdateInput, @CurrentUser() currentUser: DecodedJwt) {
+    const userId = currentUser.id;
+    const owns = await this.userToSkillService.checkOwnership(currentUser.id, userToSkillUpdate.userToSkillId)
+    if (owns){
+      return await this.userToSkillService.update(userToSkillUpdate);
+    } else {
+      throw new UnauthorizedException();
+    }
   }
 
   @ResolveField('skill', (returns) => Skill)

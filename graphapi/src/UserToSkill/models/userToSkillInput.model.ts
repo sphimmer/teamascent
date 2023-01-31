@@ -8,9 +8,18 @@ export class UserToSkillInput {
   @Field({nullable: true})
   userId?: string;
 
-  @Field()
+  @Field(() => Int)
   skillId!: number;
 
   @Field(() => Int)
-  compentencyLevel: number;
+  competencyLevel: number;
+}
+
+@InputType()
+export class UserToSkillUpdateInput {
+  @Field(() => Int)
+  userToSkillId: number;
+
+  @Field(() => Int)
+  competencyLevel: number;
 }

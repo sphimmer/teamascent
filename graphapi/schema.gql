@@ -34,11 +34,12 @@ type Mutation {
   deleteSkill: DeleteResult!
   login(loginInput: LoginInput!): LoginResponse!
   publishTeam(id: Float!): Team!
-  removeSkillFromUser(skillId: Float!): DeleteResult!
+  removeSkillFromUser(userToSkillId: Int!): DeleteResult!
   updateMe(me: UpdateUser!): User!
   updatePosition(id: Float!, position: PositionUpdate!): Position!
   updateRole(id: Float!, roleInputData: RoleInput!): Role!
   updateTeam(id: Float!): Team!
+  updateUserSkill(updateData: UserToSkillUpdateInput!): UserToSkill!
 }
 
 type Organization {
@@ -154,12 +155,18 @@ input UserInput {
 }
 
 type UserToSkill {
-  compentencyLevel: Int!
+  competencyLevel: Int!
   skill: Skill!
+  userToSkillId: Int!
 }
 
 input UserToSkillInput {
-  compentencyLevel: Int!
-  skillId: Float!
+  competencyLevel: Int!
+  skillId: Int!
   userId: String
+}
+
+input UserToSkillUpdateInput {
+  competencyLevel: Int!
+  userToSkillId: Int!
 }
