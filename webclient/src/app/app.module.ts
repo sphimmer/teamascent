@@ -13,6 +13,7 @@ import { ContactpageComponent } from './contactpage/contactpage.component';
 import { NotfoundpageComponent } from './notfoundpage/notfoundpage.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
     UserModule,
     AuthModule,
     GraphQLModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

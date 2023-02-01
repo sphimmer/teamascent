@@ -1,27 +1,47 @@
+<div *ngIf="showAddSkillModal">
+  <app-modal title="Add {{currentSkill.name}} to your set of skills" buttonLabel="Save" (closeButton)="onCloseModal()" (actionButton)="onSaveSkill()" modalError="{{modalError}}">
+      <h5 class="text-component margin-bottom-xs">Rate your Competency 1-10</h5>
+      <div class="margin-bottom-xs">
+        <app-slider (slideValue)="onSlideValueChange($event)"></app-slider>
+      </div>
+  </app-modal>
+</div>
+
+<div *ngIf="showEditSkillModal">
+  <app-modal title="Edit your {{currentUserSkill!.skill.name}} skill" buttonLabel="Update" (closeButton)="onCloseModal()" (actionButton)="onUpdateSkill()" (secondaryActionButton)="onDeleteSkill()" secondaryButtonLabel="Remove" modalError="{{modalError}}">
+      <h5 class="text-component margin-bottom-xs">Rate your Competency 1-10</h5>
+      <div class="margin-bottom-xs">
+        <app-slider value="{{currentUserSkill.competencyLevel}}" (slideValue)="onEditSlideValueChange($event)"></app-slider>
+      </div>
+  </app-modal>
+</div>
 <app-profile-header
-  name="{{ authService.user?.firstName }} {{ authService.user?.lastName }}"
-  role="{{ authService.user?.role }}"
+  name="{{ userService.me?.firstName }} {{ userService.me?.lastName }}"
+  role="null"
 ></app-profile-header>
 <div class="text-component">
   <h2>My Skills</h2>
 </div>
-<div class="grid gap-md padding-top-md">
 
+<div class="grid gap-md padding-top-md">
   <div class="col-3@md">
     <h5 class="text-component margin-bottom-xs">Add a new Skill</h5>
-    <app-search></app-search>
+    <app-search
+      (enterKey)="onEnterKey($event)"
+      placeHolder="Search for Skill"
+
+    ></app-search>
+    <div *ngFor="let s of skillsResult.skills">
+      <app-chip (iconPress)="onAddIconPressed($event)" icon="add" skillId="{{s.id}}" name="{{s.name}}"></app-chip>
+    </div>
   </div>
 
-  <div class="col-3@md">
-    <h5 class="text-component margin-bottom-xs">Rate your Competency 1-10</h5>
-    <div class="margin-bottom-xs">
-      <app-slider></app-slider>
+  <div class="col-9@md">
+    <h5 class="margin-bottom-xs" >Skills</h5>
+    <div *ngFor="let i of skills">
+      <app-chip #skillElement (iconPress)="onEditIconPressed($event)"  level="{{i.competencyLevel}}" id="{{i.userToSkillId}}" skillId="{{i.skill.id}}" icon="edit" name="{{ i.skill.name}}"></app-chip>
     </div>
-    <app-button text="Save"></app-button>
-  </div>
-  <div class="col-6@md">
-    <h5 class="margin-bottom-xs">Skills</h5>
-    <app-chip label="CSS lvl: 4"></app-chip>
+    <!-- <app-chip label="CSS 4"></app-chip>
     <app-chip label="CSS 4"></app-chip>
     <app-chip label="CSS 4"></app-chip>
     <app-chip label="CSS 4"></app-chip>
@@ -31,7 +51,6 @@
     <app-chip label="CSS 4"></app-chip>
     <app-chip label="CSS 4"></app-chip>
     <app-chip label="CSS 4"></app-chip>
-    <app-chip label="CSS 4"></app-chip>
-    <app-chip label="CSS 4"></app-chip>
+    <app-chip label="CSS 4"></app-chip> -->
   </div>
 </div>

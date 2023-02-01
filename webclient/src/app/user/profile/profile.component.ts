@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,9 +8,18 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+  constructor(public userService: UserService) { }
 
   ngOnInit(): void {
+    this.userService.getUser().valueChanges.subscribe({
+      next: (result) => {
+        console.log(result.data.me)
+        this.userService.me = result.data.me
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
 
 }

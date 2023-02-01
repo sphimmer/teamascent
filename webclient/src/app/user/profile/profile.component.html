@@ -1,20 +1,20 @@
 
     <app-profile-header
-      name="{{authService.user?.firstName}} {{authService.user?.lastName}}"
-      role="{{authService.user?.role}}" userId="{{authService.user?.id}}"
+      name="{{userService.me?.firstName}} {{userService.me?.lastName}}"
+      role="null" userId="{{userService.me?.id}}"
     ></app-profile-header>
     <div class="margin-bottom-sm">
       <div class="grid gap-xs">
         <div class="col-6@md">
-          <app-text-input label="First Name" value="{{authService.user?.firstName}}"></app-text-input>
+          <app-text-input label="First Name" value="{{userService.me?.firstName}}"></app-text-input>
         </div>
         <div class="col-6@md">
-          <app-text-input label="Last Name" value="{{authService.user?.lastName}}"></app-text-input>
+          <app-text-input label="Last Name" value="{{userService.me?.lastName}}"></app-text-input>
         </div>
       </div>
-      <app-text-input label="Email" value="{{authService.user?.email}}"></app-text-input>
+      <app-text-input label="Email" value="{{userService.me?.email}}"></app-text-input>
       <app-password-field></app-password-field>
-      <app-datepicker label="Date of Birth"></app-datepicker>
+      <app-datepicker label="Date of Birth">{{userService.me?.dateOfBirth}}</app-datepicker>
     </div>
     <app-textarea
       label="Biography"

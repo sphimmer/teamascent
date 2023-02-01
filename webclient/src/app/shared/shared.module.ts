@@ -15,6 +15,8 @@ import { SearchComponent } from './search/search.component';
 import { SliderComponent } from './slider/slider.component';
 import { ChipComponent } from './chip/chip.component';
 import { PersonComponent } from './person/person.component';
+import { FormsModule } from '@angular/forms';
+import { ModalComponent } from './modal/modal.component';
 
 
 
@@ -33,11 +35,13 @@ import { PersonComponent } from './person/person.component';
     SearchComponent,
     SliderComponent,
     ChipComponent,
-    PersonComponent
+    PersonComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
 
   ],
   exports: [
@@ -54,7 +58,8 @@ import { PersonComponent } from './person/person.component';
     SearchComponent,
     SliderComponent,
     ChipComponent,
-    PersonComponent
+    PersonComponent,
+    ModalComponent,
   ]
 })
 export class SharedModule { }

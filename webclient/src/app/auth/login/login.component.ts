@@ -23,19 +23,21 @@ export class LoginComponent implements OnInit {
   login(){
     this.message = undefined
     if(this.email && this.password){
-      try {
-        this.authService.login(this.email, this.password).subscribe(result => {
-          console.log(result)
-          this.router.navigate([this.linkService.getLink('skills')])
-        })
-      } catch (error) {
-        this.message = error as string
-      }
-
+      this.authService.login(this.email, this.password).subscribe({
+        next: (result) => {
+          if (result.data) {
+            console.log(result.data);
+            this.authService.setUser(result.data.login.user)
+            this.authService.setToken(result.data.login.access_token)
+            this.router.navigate([this.linkService.getLink('skills')])
+          }
+        },
+        error: (error) => {
+          this.message = "Ther was an error logging in. Check your username and password."
+        }
+      });
     } else {
       this.message = "Please provide email and password"
     }
-
   }
-
 }

@@ -1,0 +1,34 @@
+<div id="modal-name-1" class="modal modal--animate-scale flex flex-center bg-black bg-opacity-90% padding-md js-modal modal--is-visible">
+  <div class="modal__content width-100% max-width-xs max-height-100% overflow-auto bg radius-md inner-glow shadow-md" role="alertdialog" aria-labelledby="modal-title-1" aria-describedby="modal-description-1">
+    <header class="bg-contrast-lower bg-opacity-50% padding-y-sm padding-x-md flex items-center justify-between">
+      <h1 id="modal-title-1" class="text-truncate text-md">{{title}}</h1>
+    </header>
+
+    <div class="padding-y-sm padding-x-md container grid">
+
+        <ng-content></ng-content>
+        <div *ngIf="modalError" class="text-component">
+          <p id="modal-description-1">{{modalError}}</p>
+        </div>
+    </div>
+
+    <footer class="padding-md">
+
+      <div class="flex justify-end gap-xs">
+        <button *ngIf="secondaryButtonLabel" (click)="onSecondaryActionButton()" class="btn">{{secondaryButtonLabel}}</button>
+
+        <button (click)="onActionButton()" class="btn btn--primary">{{buttonLabel}}</button>
+      </div>
+    </footer>
+  </div>
+
+  <button (click)="onCloseButton()" class="reset modal__close-btn modal__close-btn--outer display@md js-modal__close js-tab-focus">
+    <svg class="icon icon--sm" viewBox="0 0 24 24">
+      <title>Close modal window</title>
+      <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="3" x2="21" y2="21" />
+        <line x1="21" y1="3" x2="3" y2="21" />
+      </g>
+    </svg>
+  </button>
+</div>

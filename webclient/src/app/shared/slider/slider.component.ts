@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 
 @Component({
@@ -10,6 +10,9 @@ export class SliderComponent implements OnInit {
   @Input()
   value: string = "1"
 
+  @Output()
+  slideValue = new EventEmitter<string>()
+
   constructor() { }
 
   ngOnInit(): void {
@@ -17,6 +20,7 @@ export class SliderComponent implements OnInit {
 
   change(num:string){
     this.value = num
+    this.slideValue.emit(num)
   }
 
 }
