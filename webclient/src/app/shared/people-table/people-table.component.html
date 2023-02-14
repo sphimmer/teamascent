@@ -1,0 +1,50 @@
+<div class="tbl">
+  <table class="tbl__table text-unit-em text-sm border-bottom border-2" aria-label="Table Example">
+    <thead class="tbl__header border-bottom border-2">
+      <tr class="tbl__row" >
+        <th class="tbl__cell text-left" scope="col">
+          <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Name</span>
+        </th>
+        <th class="tbl__cell text-left" scope="col">
+          <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Title</span>
+        </th>
+        <th class="tbl__cell text-left" scope="col">
+          <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Profile</span>
+        </th>
+        <!-- <th class="tbl__cell text-left" scope="col">
+          <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Name</span>
+        </th> -->
+
+      </tr>
+    </thead>
+
+    <tbody class="tbl__body" *ngFor="let row of people">
+      <tr class="tbl__row">
+        <td class="tbl__cell" role="cell">
+          <div class="flex items-center">
+            <figure class="width-lg height-lg radius-50% flex-shrink-0 overflow-hidden margin-right-xs">
+              <img class="block width-100% height-100% object-cover" src="../../../assets/img/user-cell-img-1.jpg" alt="Author picture">
+            </figure>
+
+            <div class="line-height-xs">
+              <p class="margin-bottom-xxxxs">{{row.lastName}}, {{row.firstName}}</p>
+              <p class="color-contrast-medium">{{row.email}}</p>
+            </div>
+          </div>
+        </td>
+
+        <td class="tbl__cell" role="cell">Title</td>
+
+        <td class="tbl__cell" role="cell">
+          <button class="btn btn--subtle">View Profile</button>
+        </td>
+
+        <!-- <td class="tbl__cell" role="cell">
+          <span class="inline-block text-sm bg-success bg-opacity-20% color-success-darker radius-full padding-y-xxxs padding-x-xs ws-nowrap">Online</span>
+        </td>
+
+        <td class="tbl__cell text-right" role="cell">$320,000</td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>

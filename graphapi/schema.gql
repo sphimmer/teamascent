@@ -81,6 +81,7 @@ type Query {
   team(id: Float!): Team!
   teams(name: String): [Team!]!
   user(id: String!): User!
+  users: [User!]!
 }
 
 type Role {

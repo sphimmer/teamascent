@@ -17,6 +17,7 @@ import { ChipComponent } from './chip/chip.component';
 import { PersonComponent } from './person/person.component';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from './modal/modal.component';
+import { PeopleTableComponent } from './people-table/people-table.component';
 
 
 
@@ -36,7 +37,8 @@ import { ModalComponent } from './modal/modal.component';
     SliderComponent,
     ChipComponent,
     PersonComponent,
-    ModalComponent
+    ModalComponent,
+    PeopleTableComponent
   ],
   imports: [
     CommonModule,
@@ -60,6 +62,7 @@ import { ModalComponent } from './modal/modal.component';
     ChipComponent,
     PersonComponent,
     ModalComponent,
+    PeopleTableComponent,
   ]
 })
 export class SharedModule { }

@@ -37,8 +37,8 @@ export const SiteMap: map<Page> = {
     path: "contact",
     component: ContactpageComponent
   },
-  teamspace: {
-    path: "teamspace",
+  account: {
+    path: "account",
     canActivate: [AuthGuard],
     component: UserComponent,
     children: {
@@ -52,9 +52,21 @@ export const SiteMap: map<Page> = {
         component: SkillsComponent,
         canActivate: [AuthGuard]
       },
+    }
+  },
+  teamspace: {
+    path: "teamspace",
+    canActivate: [AuthGuard],
+    component: UserComponent,
+    children: {
       builder: {
         path: 'builder',
         component: BuilderComponent,
+        canActivate: [AuthGuard]
+      },
+      people: {
+        path: 'people',
+        component: SearchPersonComponent,
         canActivate: [AuthGuard]
       }
     }

@@ -1,21 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo, gql, QueryRef } from 'apollo-angular';
+import { Me, MeResult } from 'src/interfaces/Me';
 import { IMySkills, ISkillsResult, IUserSkill } from 'src/interfaces/Skills';
-
-interface Me {
-  email: string;
-  id: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  biography: string;
-  createdDate: string;
-}
-
-interface MeResult {
-  me: Me;
-}
+import { meQuery } from '../graphql/me';
 
 interface AddSkillResult {
   addSkill: IUserSkill;
@@ -35,22 +23,8 @@ export class UserService {
   constructor(private router: Router, private apollo: Apollo) {}
   me?: Me;
   getUser(): QueryRef<MeResult> {
-    const getUser = gql`
-      {
-        me {
-          email
-          id
-          firstName
-          lastName
-          dateOfBirth
-          biography
-          createdDate
-        }
-      }
-    `;
-
     return this.apollo.watchQuery<MeResult>({
-      query: getUser,
+      query: meQuery,
     });
   }
 

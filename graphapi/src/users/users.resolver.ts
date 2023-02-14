@@ -81,6 +81,12 @@ export class UsersResolver {
     return await this.userService.updateUser(newU, cUser.organizationId)
   }
 
+  @Query(() => [User], {name: "users"})
+  @UseGuards(GqlAuthGuard)
+  async getUsers(@CurrentUser() cUser: DecodedJwt){
+    return await this.userService.findUsersOfOrg(cUser.organizationId)
+  }
+
   @ResolveField('skills', (returns) => [UserToSkill])
   async getSkills(@Parent() user: User) {
     const skills = await this.userToSkillService.findAllByUser(user.id);

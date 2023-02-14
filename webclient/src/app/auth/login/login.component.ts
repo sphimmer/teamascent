@@ -18,6 +18,9 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, public linkService: LinkService) { }
 
   ngOnInit(): void {
+    if(this.authService.getToken()){
+      this.router.navigate([this.linkService.getLink('skills')])
+    }
   }
 
   login(){

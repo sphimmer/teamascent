@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { IUser } from 'src/interfaces/IUser';
 import { USERS } from './mock-users';
-import { Apollo, gql, MutationResult } from 'apollo-angular';
+import { Apollo, gql, MutationResult, QueryRef } from 'apollo-angular';
+import { MeResult } from 'src/interfaces/Me';
+import { meQuery } from '../graphql/me';
 
 interface loginResult {
       login: {
@@ -25,6 +27,7 @@ export class AuthService {
 
   setUser(user: IUser){
     this.user = user
+    console.log("user set in service")
   }
 
   setToken(token: string): void {
@@ -36,11 +39,14 @@ export class AuthService {
     if (this.accessToken) {
       return this.accessToken
     } else {
+      console.log("getting token from local stoage")
       const token = localStorage.getItem("access_token")
       if (token){
+        console.log("token found")
         this.accessToken = token
         return token
       } else {
+        console.log("token not found")
         return null
       }
     }
@@ -85,12 +91,9 @@ export class AuthService {
     this.user = undefined;
   }
 
-  getUser(id: number): Observable<IUser> {
-    const user = USERS.filter((u) => u.id == id);
-    if (user.length == 1) {
-      return of(user[0]);
-    } else {
-      throw new Error('User not found');
-    }
+  getUser(): QueryRef<MeResult>{
+    return this.apollo.watchQuery<MeResult>({
+      query: meQuery
+    })
   }
 }

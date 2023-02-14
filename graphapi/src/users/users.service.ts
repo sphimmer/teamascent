@@ -46,4 +46,13 @@ export class UsersService {
       Logger.error('Error in retrieving user', 'UserService.findUser');
     }
   }
+
+  async findUsersOfOrg(organizationId: string): Promise<User[]>{
+    try {
+      const users = await this.repository.find({organization: {id: organizationId}})
+      return users;
+    } catch (error) {
+      Logger.error('Error in retrieving users', 'UserService.findUsersOfOrg', error)
+    }
+  }
 }

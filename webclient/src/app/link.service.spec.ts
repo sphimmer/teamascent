@@ -21,6 +21,6 @@ describe('LinkService', () => {
 
   it('should find nested page', ()=>{
     const link = service.getLink('profile')
-    expect(link).toBe('/teamspace/profile')
+    expect(link).toBe('/account/profile')
   })
 });
